@@ -11,6 +11,11 @@ let accounts=new Account(client)
 client.setEndpoint('https://cloud.appwrite.io/v1')
 .setProject(APPWRITE_PROJ_ID)
 .setKey(APPWRITE_KEY);
+router.get('/',async(req,res)=>{
+res.json({
+  msg:"Hi"
+})
+});
 router.post('/register',async(req,res)=>
     {
         try {
