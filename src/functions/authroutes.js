@@ -19,9 +19,9 @@ res.json({
 router.post('/register',async(req,res)=>
     {
         try {
-            const { email, password,name } = req.body;
+            const { email, password,name,phone } = req.body;
             console.log(email+" "+password)
-            const user=await users.create(ID.unique(),email,'+919111111113',password,name);
+            const user=await users.create(ID.unique(),email,phone,password,name);
 
       
             res.status(201).json({
