@@ -5,7 +5,7 @@ const app=require('./app');
 const StartServer=async()=>{
     const app2=express();
     await app(app2);
-    app2.listen(PORT,()=>{
+    app2.listen('0.0.0.0',()=>{
         console.log(`listening to port ${PORT}`);
     })
     .on('error', (err) => {
