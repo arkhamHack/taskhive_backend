@@ -5,12 +5,11 @@ require("dotenv").config();
 const {dbRoutes,userAuth}=require('./functions')
 const router=express.Router()
 module.exports=async(app)=>{
-    app=express();
+module.exports=async(app)=>{
     app.use(express.json());
     app.use(cors());
-    dbRoutes(router);
-    userAuth(router);
-    app.use(router);
+    dbRoutes(app);
+    userAuth(app);
     //app.use('/.netlify/functions/api',router);
     //serverless(app);
 
