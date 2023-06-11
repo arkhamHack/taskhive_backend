@@ -1,0 +1,1 @@
+module.exports={dbRoutes:require('./dbRoutes'), userAuth:require('./authroutes')}
