@@ -5,7 +5,6 @@ require("dotenv").config();
 const {dbRoutes,userAuth}=require('./functions')
 const router=express.Router()
 module.exports=async(app)=>{
-module.exports=async(app)=>{
     app.use(express.json());
     app.use(cors());
     dbRoutes(app);
