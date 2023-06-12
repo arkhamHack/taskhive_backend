@@ -28,7 +28,7 @@ res.status(201).json({
 
 router.post('/createBoard',async(req,res)=>{
     try{
-    const board=await database.createDocument(DB_ID,BOARD_COLL,ID.unique(),req.body);
+    const board=await database.createDocument(DB_ID,BOARD_COLL,sdk.ID.unique(),req.body);
     res.status(201).json({
         message: 'Board was successfully created',
         board,
@@ -43,7 +43,7 @@ router.post('/createBoard',async(req,res)=>{
     });
 router.post('/createCard',async(req,res)=>{
         try{
-        const card=await database.createDocument(DB_ID,CARDS_COLL,ID.unique(),req.body);
+        const card=await database.createDocument(DB_ID,CARDS_COLL,sdk.ID.unique(),req.body);
         res.status(201).json({
             message: 'Card was successfully created',
             card,
