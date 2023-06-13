@@ -36,7 +36,7 @@ router.post('/createBoard',async(req,res)=>{
         message: 'Board was successfully created',
         board,
       });
-    const update_proj=await database.updateDocument(DB_ID,CO)
+    //const update_proj=await database.updateDocument(DB_ID,CO)
     } catch (error) {
       console.error('Error while creating board:', error);
       res.status(500).json({
