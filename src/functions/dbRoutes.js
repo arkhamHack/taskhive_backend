@@ -70,10 +70,11 @@ router.post('/createCard',async(req,res)=>{
 
 router.get('/listDocuments',async(req,res)=>{
   try{
-    const user_id=req.query.userId;
+    const id=req.query.id;
     const coll_id=req.query.collectionId;
+    const field=req.query.field
     const usr_dets=await database.listDocuments(DB_ID,coll_id,[
-      sdk.Query.search('user_ids',[user_id])
+      sdk.Query.search(field,[id])
     ]);
     res.status(201).json({
       message: 'Document list fetched',
