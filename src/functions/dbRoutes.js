@@ -72,7 +72,7 @@ router.get('/listDocuments',async(req,res)=>{
   try{
     const id=req.query.id;
     const coll_id=req.query.collectionId;
-    const field=req.query.field
+    const field=req.query.field;
     const usr_dets=await database.listDocuments(DB_ID,coll_id,[
       sdk.Query.search(field,[id])
     ]);
@@ -84,4 +84,25 @@ router.get('/listDocuments',async(req,res)=>{
     console.log(err)
   }
 });
+router.get('/latest',async(req,res)=>{
+try{
+  const id=req.query.id;
+  const coll_id=req.query.collectionId;
+  const field=req.query.field;
+  const usr_dets=await database.listDocuments(DB_ID,coll_id,
+  [
+  sdk.Query.orderDesc("$updatedAt"),
+  sdk.Query.search(field,[id])
+  ]);
+res.status(201).json({
+  message: 'Document list fetched',
+  usr_dets,
+});
+}catch(err){
+  console.log(err)
+
+}
+
+});
+
 }
