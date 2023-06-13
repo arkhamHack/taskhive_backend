@@ -72,7 +72,7 @@ router.get('/listDocuments',async(req,res)=>{
   try{
     const user_id=req.query.userId;
     const coll_id=req.query.collectionId;
-    const usr_dets=await database.listDocuments(DB_ID,PROJ_COLL,[
+    const usr_dets=await database.listDocuments(DB_ID,coll_id,[
       sdk.Query.search('user_ids',[user_id])
     ]);
     res.status(201).json({
