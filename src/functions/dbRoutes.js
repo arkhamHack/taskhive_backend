@@ -19,15 +19,7 @@ res.status(201).json({
     message: 'Project was successfully created',
     proj,
   });
-// user_ids.forEach(
-//   async(id)=>{
-//   const usr_dets=await database.listDocuments(DB_ID,USERS_COLL,[
-//         sdk.Query.equal("documents.user_id",id)
-//       ]);
-//   const temp=usr_dets.documents.user_id;
-//   await database.updateDocument(DB_ID,USERS_COLL,id,)
-//   }
-//   )
+
   
 } catch (error) {
   console.error('Error while creating project:', error);
@@ -85,24 +77,34 @@ router.get('/listDocuments',async(req,res)=>{
   }
 });
 router.get('/latest',async(req,res)=>{
-try{
-  const id=req.query.id;
-  const coll_id=req.query.collectionId;
-  const field=req.query.field;
-  const usr_dets=await database.listDocuments(DB_ID,coll_id,
-  [
-  sdk.Query.orderDesc("$updatedAt"),
-  sdk.Query.search(field,[id])
-  ]);
-res.status(201).json({
-  message: 'Document list fetched',
-  usr_dets,
+  try{
+    const id=req.query.id;
+    const coll_id=req.query.collectionId;
+    const field=req.query.field;
+    const usr_dets=await database.listDocuments(DB_ID,coll_id,
+    [
+    sdk.Query.orderDesc("$updatedAt"),
+    sdk.Query.search(field,[id])
+    ]);
+  res.status(201).json({
+    message: 'Document list fetched',
+    usr_dets,
+  });
+  }catch(err){
+    console.log(err)
+  }
 });
-}catch(err){
-  console.log(err)
-
-}
-
+router.delete('/delete',async(req,res)=>{
+  try{
+    const id=req.query.id;
+    const coll_id=req.query.collectionId;
+    const dets=await database.deleteDocument(DB_ID,coll_id,id);
+    res.status(201).json({
+      message: 'Document deleted',
+      dets,
+    });
+  }catch(err){
+    console.log(err)
+  }
 });
-
 }
