@@ -13,11 +13,22 @@ const database=new sdk.Databases(client)
 router.post('/createProj',async(req,res)=>{
 try{
   console.log(PROJ_COLL);
+  const {user_ids}=req.body;
 const proj=await database.createDocument(DB_ID,PROJ_COLL,sdk.ID.unique(),req.body);
 res.status(201).json({
     message: 'Project was successfully created',
     proj,
   });
+// user_ids.forEach(
+//   async(id)=>{
+//   const usr_dets=await database.listDocuments(DB_ID,USERS_COLL,[
+//         sdk.Query.equal("documents.user_id",id)
+//       ]);
+//   const temp=usr_dets.documents.user_id;
+//   await database.updateDocument(DB_ID,USERS_COLL,id,)
+//   }
+//   )
+  
 } catch (error) {
   console.error('Error while creating project:', error);
   res.status(500).json({
@@ -28,7 +39,7 @@ res.status(201).json({
 
 router.post('/createBoard',async(req,res)=>{
     try{
-    const board=await database.createDocument(DB_ID,BOARD_COLL,sdk.ID.unique(),req.body);
+    const board=await database.createDocument(DB_ID,BOARD_COLL,ID.unique(),req.body);
     res.status(201).json({
         message: 'Board was successfully created',
         board,
@@ -43,7 +54,7 @@ router.post('/createBoard',async(req,res)=>{
     });
 router.post('/createCard',async(req,res)=>{
         try{
-        const card=await database.createDocument(DB_ID,CARDS_COLL,sdk.ID.unique(),req.body);
+        const card=await database.createDocument(DB_ID,CARDS_COLL,ID.unique(),req.body);
         res.status(201).json({
             message: 'Card was successfully created',
             card,
@@ -55,4 +66,21 @@ router.post('/createCard',async(req,res)=>{
           });
         }
         });
+
+
+router.get('/listDocuments',async(req,res)=>{
+  try{
+    const user_id=req.query.userId;
+    const coll_id=req.query.collectionId;
+    const usr_dets=await database.listDocuments(DB_ID,PROJ_COLL,[
+      sdk.Query.search('user_ids',[user_id])
+    ]);
+    res.status(201).json({
+      message: 'Document list fetched',
+      usr_dets,
+    });
+  }catch(err){
+    console.log(err)
+  }
+});
 }
