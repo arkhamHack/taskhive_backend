@@ -36,7 +36,7 @@ router.post('/createBoard',async(req,res)=>{
         message: 'Board was successfully created',
         board,
       });
-    //const update_proj=await database.updateDocument(DB_ID,CO)
+    //const update_proj=await database.updateDocument(DB_ID,PROJ_COLL,)
     } catch (error) {
       console.error('Error while creating board:', error);
       res.status(500).json({
@@ -104,7 +104,23 @@ router.delete('/delete',async(req,res)=>{
       dets,
     });
   }catch(err){
-    console.log(err)
+    console.log(err);
+  }
+});
+
+router.patch('/updateDoc',async(req,res)=>{
+  try{
+    const id=req.query.id;
+    const coll_id=req.query.collectionId;
+    const field=req.body;
+    const promise=await database.updateDocument(DB_ID,coll_id,id,field);
+    res.status(201).json({
+      message: 'Document deleted',
+      promise,
+    });
+  }
+  catch(err){
+    console.log(err);
   }
 });
 }
